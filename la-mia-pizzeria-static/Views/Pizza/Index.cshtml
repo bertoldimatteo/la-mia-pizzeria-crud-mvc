@@ -21,8 +21,17 @@
             <p>@pizza.Description</p>
             <img src="@pizza.Photo">
             <p>Prezzo: @pizza.Price €</p>
-            <a href="@Url.Action("Detail", "Pizza", new {id = pizza.PizzaID})">Dettaglio</a>
-            <a href="@Url.Action("Update", "Pizza", new {id = pizza.PizzaID})">Modifica</a>
+            <div>
+                <a href="@Url.Action("Detail", "Pizza", new {id = pizza.PizzaID})">Dettaglio</a>
+            </div>
+            <div>
+                <a href="@Url.Action("Update", "Pizza", new {id = pizza.PizzaID})">Modifica</a>
+            </div>
+            <div>
+            <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@pizza.PizzaID" method="post">
+               <button class="btn-danger">Elimina</button>
+            </form>
+            </div>
         </div>
     }
 
