@@ -1,0 +1,20 @@
+﻿
+@model List<Pizza>
+
+<div class="text-center">
+    <h1 class="display-4">La mia Pizzeria</h1>
+    <p>test</p>
+</div>
+
+<div class="pizza-section">
+    
+    @foreach(Pizza pizza in Model){
+        <div class="pizza-view">
+            <h2>@pizza.Name</h2>
+            <p>@pizza.Description</p>
+            <img src="@pizza.Photo">
+            <p>Prezzo: @pizza.Price €</p>
+        </div>
+    }
+
+</div>

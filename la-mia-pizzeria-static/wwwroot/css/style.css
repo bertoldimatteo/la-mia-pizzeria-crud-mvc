@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+navbar, .right-navbar {
+    display: flex;
+    align-items: center;
+}
+navbar {
+    justify-content: space-between;
+    padding: 30px;
+    background-color: #000;
+}
+a {
+    text-decoration:none;
+}
+ul li {
+    list-style-type:none;
+}
+.nav-link {
+    margin: 0 20px;
+    font-size: 1.25rem;
+    color: #fff;
+}
+.pizza-section, .title {
+    padding: 50px;
+}
+.title {
+    background-color: #000;
+    color: #fff;
+    background-image: url(../img/halloween-wallpaper-with-cemetery-night_23-2149122588.jpg);
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.pizza-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around
+}
+.pizza-view {
+    margin-bottom: 30px;
+}
+.invisible {
+    display:none;
+}
+.create {
+    margin-top:20px;
+    margin-left:50px;
+}
+.box {
+    width: 50px;
+    height: 20px;
+    background-color: green;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+img {
+    width: 400px;
+}

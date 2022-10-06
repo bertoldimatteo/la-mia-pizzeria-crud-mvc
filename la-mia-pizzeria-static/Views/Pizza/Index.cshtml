@@ -1,0 +1,29 @@
+﻿
+@model List<Pizza>
+@{
+    int count = 0;
+}
+<div class="title">
+    <h1>Pizzeria Belfiore - Al cadavere</h1>
+    <p>Via del cimitero n°1</p>
+</div>
+
+<div class="create">
+    <a class="box" href="@Url.Action("Create", "Pizza")">Crea nuova pizza</a>
+</div>
+
+<div class="pizza-section">
+
+    @foreach(Pizza pizza in Model){
+        <div class="pizza-view">
+            <span class="invisible">@count</span>
+            <h2>@pizza.Name</h2>
+            <p>@pizza.Description</p>
+            <img src="@pizza.Photo">
+            <p>Prezzo: @pizza.Price €</p>
+            <a href="@Url.Action("Detail", "Pizza", new {id = pizza.PizzaID})">Dettaglio</a>
+            <a href="@Url.Action("Update", "Pizza", new {id = pizza.PizzaID})">Modifica</a>
+        </div>
+    }
+
+</div>
