@@ -1,7 +1,7 @@
 ﻿using la_mia_pizzeria_crud_mvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient.Server;
-using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace la_mia_pizzeria_crud_mvc.Controllers
 {
@@ -12,7 +12,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         {
             using (PizzaContext context = new PizzaContext())
             {
-                List<Pizza> pizzas = context.Pizzas.ToList<Pizza>();
+                List<Pizza> pizzas = context.Pizzas.Include("Category").ToList();
                 return View("Index", pizzas);
             }
         }

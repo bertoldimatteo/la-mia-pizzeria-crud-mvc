@@ -11,8 +11,5 @@
         {
             
         }
-        public int PizzaId { get; set; }
-        public Pizza Pizza { get; set; }
-
     }
 }
