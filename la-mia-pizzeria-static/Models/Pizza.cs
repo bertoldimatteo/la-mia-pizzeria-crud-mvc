@@ -19,6 +19,9 @@ namespace la_mia_pizzeria_crud_mvc.Models
         [Range(1, 999, ErrorMessage = "Il prezzo non può essere inferiore a 1")]
         public int Price { get; set; }
 
+        public int? CategoryId { get; set; }
+        public Category? Category { get; set; }
+
         public Pizza()
         {
 

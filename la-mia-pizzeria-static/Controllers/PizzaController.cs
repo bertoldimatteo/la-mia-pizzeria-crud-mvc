@@ -37,11 +37,11 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            PizzaCategories pizzaCategories = new PizzaCategories();
+            PizzasCategories pizzasCategories = new PizzasCategories();
 
-            pizzaCategories.Categories = new PizzaContext().Categories.ToList();
+            pizzasCategories.Categories = new PizzaContext().Categories.ToList();
 
-            return View(pizzaCategories);
+            return View(pizzasCategories);
         }
 
         [HttpPost]
