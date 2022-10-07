@@ -21,7 +21,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         {
             using (PizzaContext context = new PizzaContext())
             {
-                Pizza pizzaDetail = context.Pizzas.Where(pizza => pizza.PizzaID == id).FirstOrDefault();
+                Pizza pizzaDetail = context.Pizzas.Where(pizza => pizza.PizzaID == id).Include(pizza => pizza.Category).FirstOrDefault();
 
                 if ( pizzaDetail == null)
                 {
@@ -73,39 +73,55 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         [HttpGet]
         public IActionResult Update (int id)
         {
-            PizzaContext context = new PizzaContext();
+            using (PizzaContext context = new PizzaContext()) 
+            { 
+                Pizza pizza = context.Pizzas.Where(pizza => pizza.PizzaID == id).FirstOrDefault();
+                
+                if (pizza == null)
+                {
+                    return NotFound("Pizza non trovata");
+                }
 
-            Pizza pizza = context.Pizzas.Where(pizza => pizza.PizzaID == id).FirstOrDefault();
-            
-            if (pizza == null)
-            {
-                return NotFound("Pizza non trovata");
+                PizzasCategories pizzasCategories = new PizzasCategories();
+
+                pizzasCategories.Pizza = pizza;
+                pizzasCategories.Categories = context.Categories.ToList();
+
+                return View(pizzasCategories);
             }
-
-            return View(pizza);
         }
 
         [HttpPost]
-        public IActionResult Update(int id, Pizza formData)
+        [ValidateAntiForgeryToken]
+        public IActionResult Update(int id, PizzasCategories formData)
         {
-            PizzaContext context = new PizzaContext();
-
-            Pizza pizza = context.Pizzas.Where(pizza => pizza.PizzaID == id).FirstOrDefault();
-
-            if(pizza != null)
+            using (PizzaContext context = new PizzaContext()) 
             {
-                pizza.Name = formData.Name;
-                pizza.Description = formData.Description;
-                pizza.Photo = formData.Photo;
-                pizza.Price = formData.Price;
-            }else
-            {
-                return NotFound("Pizza non trovata");
+                if (!ModelState.IsValid)
+                {
+                    formData.Categories = context.Categories.ToList();
+                    return View("Update", formData);
+                }
+
+                Pizza pizza = context.Pizzas.Where(pizza => pizza.PizzaID == id).FirstOrDefault();
+
+                if (pizza != null)
+                {
+                    pizza.Name = formData.Pizza.Name;
+                    pizza.Description = formData.Pizza.Description;
+                    pizza.Photo = formData.Pizza.Photo;
+                    pizza.Price = formData.Pizza.Price;
+                    pizza.CategoryId = formData.Pizza.CategoryId;
+
+                    context.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound("Pizza non trovata");
+                }
             }
-
-            context.SaveChanges();
-
-            return RedirectToAction("Index");
         }
 
         [HttpPost]
