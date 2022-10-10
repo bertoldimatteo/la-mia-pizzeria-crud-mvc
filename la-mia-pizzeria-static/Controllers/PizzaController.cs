@@ -52,13 +52,15 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create (PizzasCategories formData)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("Create", formData);
-            }
-
             using (PizzaContext context = new PizzaContext())
             {
+                if (!ModelState.IsValid)
+                {
+                    formData.Categories = context.Categories.ToList();
+                    formData.Tags = context.Tags.ToList();
+                    return View("Create", formData);
+                }
+
                 Pizza pizza = new Pizza();
                 pizza.Name = formData.Pizza.Name;
                 pizza.Description = formData.Pizza.Description;
