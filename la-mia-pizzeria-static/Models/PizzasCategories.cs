@@ -4,6 +4,7 @@
     {
         public Pizza Pizza { get; set; }
         public List <Category> Categories { get; set; }
+        public List<Tag> Tags { get; internal set; }
 
         public PizzasCategories()
         {

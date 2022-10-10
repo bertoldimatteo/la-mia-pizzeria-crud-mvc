@@ -39,7 +39,11 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         {
             PizzasCategories pizzasCategories = new PizzasCategories();
 
+            PizzaContext context = new PizzaContext();
+
             pizzasCategories.Categories = new PizzaContext().Categories.ToList();
+
+            pizzasCategories.Tags = context.Tags.ToList();
 
             return View(pizzasCategories);
         }
