@@ -4,12 +4,12 @@
 
 namespace la_mia_pizzeria_crud_mvc.Migrations
 {
-    public partial class UpdateEntityAddTag : Migration
+    public partial class UpdateEntiryAddIngredient : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Tags",
+                name: "Ingredients",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -18,46 +18,46 @@ namespace la_mia_pizzeria_crud_mvc.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tags", x => x.Id);
+                    table.PrimaryKey("PK_Ingredients", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PizzaTag",
+                name: "IngredientPizza",
                 columns: table => new
                 {
-                    PizzasPizzaID = table.Column<int>(type: "int", nullable: false),
-                    TagsId = table.Column<int>(type: "int", nullable: false)
+                    IngredientsId = table.Column<int>(type: "int", nullable: false),
+                    PizzasPizzaID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PizzaTag", x => new { x.PizzasPizzaID, x.TagsId });
+                    table.PrimaryKey("PK_IngredientPizza", x => new { x.IngredientsId, x.PizzasPizzaID });
                     table.ForeignKey(
-                        name: "FK_PizzaTag_pizza_PizzasPizzaID",
+                        name: "FK_IngredientPizza_Ingredients_IngredientsId",
+                        column: x => x.IngredientsId,
+                        principalTable: "Ingredients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_IngredientPizza_pizza_PizzasPizzaID",
                         column: x => x.PizzasPizzaID,
                         principalTable: "pizza",
                         principalColumn: "PizzaID",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PizzaTag_Tags_TagsId",
-                        column: x => x.TagsId,
-                        principalTable: "Tags",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_PizzaTag_TagsId",
-                table: "PizzaTag",
-                column: "TagsId");
+                name: "IX_IngredientPizza_PizzasPizzaID",
+                table: "IngredientPizza",
+                column: "PizzasPizzaID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PizzaTag");
+                name: "IngredientPizza");
 
             migrationBuilder.DropTable(
-                name: "Tags");
+                name: "Ingredients");
         }
     }
 }

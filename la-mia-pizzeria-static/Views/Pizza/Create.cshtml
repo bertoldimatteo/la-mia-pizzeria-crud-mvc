@@ -53,19 +53,34 @@
                     <span asp-validation-for="Pizza.CategoryId" class="text-danger"></span>
                 </div>
 
-
                 <div class="mb-3">
                     <strong>Tag:</strong>
-                    @foreach (Tag tag in Model.Tags)
-                    {
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                <option value="@tag.Id" selected>@tag.Name</option>
-                            </label>
-                        </div>
-                    }
+                    <select asp-for="SelectedIngredient" multiple="multiple">
+                      
+                        @foreach (Ingredient ingredient in Model.Ingredients)
+                        {
+                            <option value="@ingredient.Id" selected>@ingredient.Name</option>
+                        }
+                    </>
+                    </select>
                 </div>
+
+               @* <div class="mb-3">
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input asp-for="SelectedIngredient" class="form-check-input" type="checkbox">
+                        @foreach (Ingredient ingredient in Model.Ingredients)
+                        {
+                            
+                                
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    <option value="@ingredient.Id" selected>@ingredient.Name</option>
+                                </label>
+                            
+                        }
+                        </div>
+                    </div>
+                </div>*@
 
                 <div class="text-end">
                     <input type="submit" class="btn btn-small btn-success" value="Salva">

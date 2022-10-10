@@ -12,7 +12,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         {
             using (PizzaContext context = new PizzaContext())
             {
-                List<Pizza> pizzas = context.Pizzas.Include("Category").ToList();
+                List<Pizza> pizzas = context.Pizzas.Include("Category").Include("Ingredients").ToList();
                 return View("Index", pizzas);
             }
         }
@@ -37,13 +37,11 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            PizzaContext context = new PizzaContext();
             PizzasCategories pizzasCategories = new PizzasCategories();
 
-            PizzaContext context = new PizzaContext();
-
             pizzasCategories.Categories = new PizzaContext().Categories.ToList();
-
-            pizzasCategories.Tags = context.Tags.ToList();
+            pizzasCategories.Ingredients = context.Ingredients.ToList();
 
             return View(pizzasCategories);
         }
@@ -52,28 +50,37 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create (PizzasCategories formData)
         {
-            using (PizzaContext context = new PizzaContext())
+            PizzaContext context = new PizzaContext();
+
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    formData.Categories = context.Categories.ToList();
-                    formData.Tags = context.Tags.ToList();
-                    return View("Create", formData);
-                }
-
-                Pizza pizza = new Pizza();
-                pizza.Name = formData.Pizza.Name;
-                pizza.Description = formData.Pizza.Description;
-                pizza.Photo = formData.Pizza.Photo;
-                pizza.Price = formData.Pizza.Price;
-                pizza.CategoryId = formData.Pizza.CategoryId;
-
-                context.Pizzas.Add(pizza);
-
-                context.SaveChanges();
-
-                return RedirectToAction("Index");
+                formData.Categories = context.Categories.ToList();
+                formData.Ingredients = context.Ingredients.ToList();
+                return View("Create", formData);
             }
+            //Pizza pizza = new Pizza();
+            //pizza.Name = formData.Pizza.Name;
+            //pizza.Description = formData.Pizza.Description;
+            //pizza.Photo = formData.Pizza.Photo;
+            //pizza.Price = formData.Pizza.Price;
+            //pizza.CategoryId = formData.Pizza.CategoryId;
+
+            List<Ingredient> selected = new List<Ingredient>();
+
+            foreach(int ingredientId in formData.SelectedIngredient)
+            {
+                Ingredient ingredient = context.Ingredients.Where(ingredient => ingredient.Id == ingredientId).FirstOrDefault();
+
+                selected.Add(ingredient);
+            }
+            formData.Pizza.Ingredients = selected;
+
+            context.Pizzas.Add(formData.Pizza);
+
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+            
         }
 
         [HttpGet]
