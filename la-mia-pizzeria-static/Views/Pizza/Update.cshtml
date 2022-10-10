@@ -53,6 +53,18 @@
                     <span asp-validation-for="Pizza.CategoryId" class="text-danger"></span>
                 </div>
 
+                <div class="mb-3">
+                    <strong>Tag:</strong>
+                    <select asp-for="SelectedIngredient" multiple="multiple">
+
+                        @foreach (Ingredient ingredient in Model.Ingredients)
+                        {
+                            <option value="@ingredient.Id" selected>@ingredient.Name</option>
+                        }
+                        </>
+                    </select>
+                </div>
+
                 <div class="text-end">
                     <input type="submit" class="btn btn-small btn-success" value="Salva">
                 </div>

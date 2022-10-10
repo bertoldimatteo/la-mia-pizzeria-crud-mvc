@@ -99,6 +99,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 
                 pizzasCategories.Pizza = pizza;
                 pizzasCategories.Categories = context.Categories.ToList();
+                pizzasCategories.Ingredients = context.Ingredients.ToList();
 
                 return View(pizzasCategories);
             }
@@ -113,10 +114,11 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
                 if (!ModelState.IsValid)
                 {
                     formData.Categories = context.Categories.ToList();
+                    formData.Ingredients = context.Ingredients.ToList();
                     return View("Update", formData);
                 }
 
-                Pizza pizza = context.Pizzas.Where(pizza => pizza.PizzaID == id).FirstOrDefault();
+                Pizza pizza = context.Pizzas.Where(pizza => pizza.PizzaID == id).Include("Ingredients").FirstOrDefault();
 
                 if (pizza != null)
                 {
@@ -125,6 +127,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
                     pizza.Photo = formData.Pizza.Photo;
                     pizza.Price = formData.Pizza.Price;
                     pizza.CategoryId = formData.Pizza.CategoryId;
+                    pizza.Ingredients = context.Ingredients.Where(ingredient => formData.SelectedIngredient.Contains(ingredient.Id)).ToList<Ingredient>();
 
                     context.SaveChanges();
 
