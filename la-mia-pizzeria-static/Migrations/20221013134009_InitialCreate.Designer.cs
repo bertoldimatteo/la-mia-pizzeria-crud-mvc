@@ -5,14 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using NetCore_01.Data;
 
 #nullable disable
 
-namespace la_mia_pizzeria_crud_mvc.Migrations
+namespace lamiapizzeriacrudmvc.Migrations
 {
     [DbContext(typeof(PizzaContext))]
-    [Migration("20221010142946_UpdateEntiryAddIngredient")]
-    partial class UpdateEntiryAddIngredient
+    [Migration("20221013134009_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using NetCore_01.Data;
 
 #nullable disable
 
-namespace la_mia_pizzeria_crud_mvc.Migrations
+namespace lamiapizzeriacrudmvc.Migrations
 {
     [DbContext(typeof(PizzaContext))]
     partial class PizzaContextModelSnapshot : ModelSnapshot
