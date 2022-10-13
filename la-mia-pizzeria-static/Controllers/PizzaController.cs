@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient.Server;
 using Microsoft.EntityFrameworkCore;
-using NetCore_01.Data;
+using la_mia_pizzeria_crud_mvc.Data;
 
 namespace la_mia_pizzeria_crud_mvc.Controllers
 {
